@@ -33,7 +33,7 @@ async def upload_data(
         )
 
     Project_dir_path = ProjectController().get_project_path(project_id=project_id)
-    file_path = data_controller.genrate_unique_filename(
+    file_path,file_id = data_controller.genrate_unique_filepath(
         orig_file_name=file.filename,
         project_id=project_id
     )
@@ -46,11 +46,11 @@ async def upload_data(
     except Exception as e:
         logger.error(f"Error uploading file: {e}")
 
-        
+
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             content={"Signal": ResponseSignal.FILE_UPLOAD_FAILED.value, "Error": str(e)}
         )
 
-    return JSONResponse(content={"Signal": ResponseSignal.FILE_UPLOAD_SUCCESS.value})
+    return JSONResponse(content={"Signal": ResponseSignal.FILE_UPLOAD_SUCCESS.value, "FileID": file_id})
 
