@@ -4,7 +4,7 @@ from bson.objectid import ObjectId
 
 
 class Project(BaseModel):
-    _id: Optional[ObjectId]
+    id: Optional[ObjectId]=Field(None,alias="_id")
     project_id: str=Field(...,min_length=1)
 
     @validator('project_id')
@@ -16,7 +16,7 @@ class Project(BaseModel):
     
 
     class Config:
-        arbitary_types_allowed = True
+         arbitrary_types_allowed = True
 
-            
+
      
